@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="app.css" />
+
+    <title>Todo app</title>
+  </head>
+  <body>
+    <div id="hero" class="hero-img"></div>
+
+    <div class="wrapper">
+      <header>
+        <h1>TODO</h1>
+        <div class="theme-switch-wrapper">
+          <label for="icon" class="theme-switch">
+            <img
+              class="moon"
+              id="icon"
+              src="images/icon-moon.svg"
+              alt="toggle icon"
+            />
+          </label>
+        </div>
+      </header>
+
+      <section class="todo-container">
+        <div id="newTask">
+          <button class="checkBtn">
+            <img id="checkIcon" src="/images/icon-check.svg" alt="check-icon" />
+          </button>
+          <input
+            type="text"
+            class="todo-text"
+            value=""
+            placeholder="Create a new todo..."
+          />
+        </div>
+      </section>
+
+      <section id="listWrapper">
+        <ul class="list movable"></ul>
+        <div id="noTasksLeft">
+          <p>
+            &#127881;<strong>Woohoo!</strong><br />
+            You're all done for the day!
+          </p>
+        </div>
+      </section>
+
+      <div class="items-info">
+        <span id="items-left">0 items left</span>
+        <span id="clr-completed">Clear Completed</span>
+      </div>
+
+      <div class="show-category">
+        <span id="all" class="category active">All</span>
+        <span id="active" class="category">Active</span>
+        <span id="completed" class="category">Completed</span>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
