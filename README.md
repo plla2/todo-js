@@ -1,99 +1,81 @@
-Todo app
+# 바닐라 자바스크립트를 활용한 Todo 앱
 
-![Design preview for the Todo app coding challenge](./design/desktop-preview.jpg)
+## 💻 Repo 소개
+바닐라 자바스크립트를 활용하여 다크모드 토글버튼과 리스트 추가,삭제,체크를 할 수 있는 사이트입니다.
 
-## Welcome! 👋
+## 🖋️ 주요 기능 </br>
+```
+function darkMode() {
+  body.setAttribute(
+    "data-theme",
+    body.getAttribute("data-theme") === "dark" ? "light" : "dark"
+  );
+  themeIcon.setAttribute(
+    "src",
+    themeIcon.getAttribute("src") === "images/icon-sun.svg"
+      ? "images/icon-moon.svg"
+      : "images/icon-sun.svg"
+  );
+  localStorage.setItem("theme", body.getAttribute("data-theme"));
+}
+toggleSwitch.addEventListener("click", setTheme);
+```
+위의 코딩을 통해 밤,낮에 사용하기 편리하도록 토글버튼을 이용하여 다크모드를 구현했다.</br></br>
+```
+function createToDo(e) {
+  let toDoVal = e.target.value;
+  if (toDoVal == null || toDoVal == "") {
+    alert("Please enter a task");
+  } else {
+    const toDo = document.createElement("li");
+    toDo.classList.add("task");
+    toDo.innerHTML += `
+    <button class="checkBtn">          
+        <img 
+        id="checkIcon" 
+        src="images/icon-check.svg" 
+        alt="check-icon"/>
+    </button>
+    <span class="toDoText break-word">${toDoVal}</span>
+    <img alt="remove" class="remove" src="images/icon-cross.svg">
+    `;
+ ```
+ 위의 코딩을 통해 할일을 리스트에 추가하기 위해 toDoval의 입력값이 비었으면 alert, 아니면 toDo의 클래스로 task를 추가하여  innerHTML로 마크업을 추가하도록 구현하였다.</br></br>
+ ```
+ const bindRemove = (btn) => {
+  btn.addEventListener("click", () => {
+    const mainPar = btn.parentElement;
+    mainPar.remove();
+    tasks.pop(mainPar);
+    completedTasks.pop(mainPar);
+    updateTaskCount();
+  });
+};
+```
+위의 코딩을 통해 리스트에서 지우고싶다면 pop()함수로 tasks배열에서 제거하는 식으로 구현을 하였고, 완료된 할일은 completedTasks 배열에서 pop()을 통해 제거를 할 수 있게 구현하였다.</br></br>
+```
+const bindDone = (btn) => {
+  const checkIcon = btn.querySelector("#checkIcon");
+  btn.addEventListener("click", () => {
+    const mainPar = btn.parentElement;
+    btn.classList.toggle("checked");
+    checkIcon.style.display = "block";
+    mainPar.classList.toggle("completed");
+    mainPar.classList.contains("completed")
+      ? completedTasks.push(mainPar)
+      : completedTasks.pop(mainPar);
+    updateTaskCount();
+  });
+};
+```
+위의 코딩을 통해 완료된 할일을 체크할 수 있는 버튼을 만들어 completed라는 클래스를 만들어 완료된 할일을 배열에 추가할 수 있게 구현하였다.
 
-Thanks for checking out this front-end coding challenge.
+## 🖥️ 실행화면
+첫 초기화면</br></br>
+<img width="794" alt="스크린샷 2023-02-04 오후 5 23 46" src="https://user-images.githubusercontent.com/120915990/216757971-00122dc4-cf88-493e-92d0-61f950649a76.png"></br></br>
+다크모드 토글버튼 활성화</br></br>
+<img width="795" alt="스크린샷 2023-02-04 오후 5 23 57" src="https://user-images.githubusercontent.com/120915990/216758045-ab06b0c9-0edd-49af-b737-b147061d2fd8.png"></br></br>
+할일 추가, 완료표시화면</br></br>
+<img width="794" alt="스크린샷 2023-02-04 오후 5 24 34" src="https://user-images.githubusercontent.com/120915990/216758085-c99daa65-cde3-4f1a-9209-d34c84cc0f60.png">
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
 
-**To do this challenge, you need a good understanding of HTML, CSS and JavaScript.**
-
-## The challenge
-
-Your challenge is to build out this todo app and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to:
-
-- View the optimal layout for the app depending on their device's screen size
-- See hover states for all interactive elements on the page
-- Add new todos to the list
-- Mark todos as complete
-- Delete todos from the list
-- Filter by all/active/complete todos
-- Clear all completed todos
-- Toggle light and dark mode
-- **Bonus**: Drag and drop to reorder items on the list
-
-Want some support on the challenge? [Join our Slack community](https://www.frontendmentor.io/slack) and ask questions in the **#help** channel.
-
-## Where to find everything
-
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design. 
-
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. 
-
-If you would like the design files (we provide Sketch & Figma versions) to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
-
-You will find all the required assets in the `/images` folder. The assets are already optimized.
-
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
-
-## Building your project
-
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
-
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
-
-## Deploying your project
-
-As mentioned above, there are many ways to host your project for free. Our recommend hosts are:
-
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
-
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
-
-## Create a custom `README.md`
-
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
-
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
-
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
-
-## Submitting your solution
-
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
-
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
-
-## Sharing your solution
-
-There are multiple places you can share your solution:
-
-1. Share your solution page in the **#finished-projects** channel of the [Slack community](https://www.frontendmentor.io/slack). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
-
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
-
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
-
-## Got feedback for us?
-
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
-
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
-
-**Have fun building!** 🚀
