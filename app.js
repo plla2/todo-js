@@ -34,7 +34,6 @@ function darkMode() {
 }
 toggleSwitch.addEventListener("click", setTheme);
 
-// Handle to do Input
 const list = document.querySelector(".list");
 const toDoText = document.querySelector(".todo-text");
 let doneBtns = document.querySelectorAll(".checkBtn");
@@ -46,7 +45,6 @@ let completedTasks = [];
 
 toDoText.addEventListener("change", createToDo);
 
-//Create Todo
 function createToDo(e) {
   let toDoVal = e.target.value;
   if (toDoVal == null || toDoVal == "") {
@@ -75,7 +73,6 @@ function createToDo(e) {
   }
 }
 
-// bind remove and done functions to the buttons
 const bindRemove = (btn) => {
   btn.addEventListener("click", () => {
     const mainPar = btn.parentElement;
@@ -102,8 +99,6 @@ const bindDone = (btn) => {
 remove.forEach(bindRemove);
 doneBtns.forEach(bindDone);
 
-//handle completed tasks
-
 const clearComplete = document.querySelector("#clr-completed");
 
 clearComplete.addEventListener("click", () => {
@@ -118,8 +113,6 @@ clearComplete.addEventListener("click", () => {
   }
 });
 
-//handle items left
-
 const itemLeft = document.querySelector("#items-left");
 
 const updateTaskCount = () => {
@@ -128,7 +121,6 @@ const updateTaskCount = () => {
   noTasksLeft.style.display = tasks.length === 0 ? "block" : "none";
 };
 
-//handle filter tasks
 const category = document.querySelectorAll(".category");
 
 for (let cat of category) {
@@ -161,8 +153,6 @@ function showCat(attr) {
     }
   });
 }
-
-//Draggable
 
 let items = document.querySelectorAll(".list>li");
 function addDragandDrop(task) {
@@ -208,8 +198,6 @@ function dragStart(e) {
   let index = tasks.indexOf(e.target);
   e.dataTransfer.setData("text/plain", index);
 }
-
-// function dropped (e)
 
 function cancelDefault(e) {
   e.preventDefault();
